@@ -5,11 +5,11 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -22,7 +22,7 @@
                         <Font size="18.0" />
                      </font>
                      <padding>
-                        <Insets left="15.0" top="25.0" />
+                        <Insets top="25.0" />
                      </padding>
                   </Label>
                   <ComboBox prefWidth="200.0">
@@ -39,7 +39,7 @@
                         <Font size="18.0" />
                      </font>
                      <padding>
-                        <Insets left="15.0" top="25.0" />
+                        <Insets top="25.0" />
                      </padding>
                   </Label>
                   <ComboBox prefWidth="200.0">
@@ -56,7 +56,7 @@
                         <Font size="18.0" />
                      </font>
                      <padding>
-                        <Insets left="15.0" top="25.0" />
+                        <Insets top="25.0" />
                      </padding>
                   </Label>
                   <ComboBox prefWidth="200.0">
@@ -73,7 +73,7 @@
                         <Font size="18.0" />
                      </font>
                      <padding>
-                        <Insets left="15.0" top="25.0" />
+                        <Insets top="25.0" />
                      </padding>
                   </Label>
                   <ComboBox prefWidth="200.0">
@@ -90,7 +90,7 @@
                         <Font size="18.0" />
                      </font>
                      <padding>
-                        <Insets left="15.0" top="25.0" />
+                        <Insets top="25.0" />
                      </padding>
                   </Label>
                   <ComboBox prefWidth="200.0">
@@ -122,7 +122,6 @@
                         <Button mnemonicParsing="false" prefWidth="82.0" text="Delete" />
                      </children>
                   </HBox>
-                  <TableView layoutX="14.0" layoutY="49.0" prefHeight="188.0" prefWidth="575.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />

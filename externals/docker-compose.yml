@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+  db:
+    container_name: mysql
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: dbBrowser
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
+    ports:
+      - 3306:3306
+
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: phpmyadmin
+      links:
+        - db
+      environment:
+          MYSQL_USER: root
+          MYSQL_PASSWORD: 1234
+          MYSQL_ROOT_PASSWORD: 1234
+      restart: always
+      ports:
+        - 8080:80
