@@ -16,7 +16,6 @@ import javafx.beans.property.SimpleStringProperty;
 import libraries.matrices;
 import models.model;
 
-import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class Controller implements Initializable {
 	private model model = new model();
 
 	/**
-	 *
+	 * Initializes the list variables on start up
 	 * @param location
 	 * @param resources
 	 */
@@ -49,7 +48,7 @@ public class Controller implements Initializable {
 	}
 
 	/**
-	 *
+	 * Where connection action happens
 	 * @param actionEvent
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -57,19 +56,32 @@ public class Controller implements Initializable {
 	 * @throws IllegalAccessException
 	 */
 	@FXML
-	private void connectToDatabse(ActionEvent actionEvent) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	private void connectToDatabse(ActionEvent actionEvent) throws ClassNotFoundException
+                                                                    ,SQLException
+                                                                    ,InstantiationException
+                                                                    ,IllegalAccessException {
 		connectionInfo.setUsername(username.getText());
 		connectionInfo.setPassword(password.getText());
 		checkIfEmpty(username.getText(), password.getText());
 	}
 
+	/**
+	 * takes the table from the combo box and triggers the dynamic table populate function
+	 * @param actionEvent
+	 * @throws SQLException
+	 */
 	@FXML
 	private void selectedTable(ActionEvent actionEvent) throws SQLException {
 		fillTable(tableList.getSelectionModel().getSelectedItem());
 	}
 
 	/**
-	 *
+	 * first clears the field
+	 * creates required number of textfield dynamically
+	 * fills the textfields with the data selected on tableview
+	 * also creates button dynamically and waits for click action to that button
+	 * takes the variables calls update function from model
+	 * lastly refreshes table
 	 * @param actionEvent
 	 * @throws SQLException
 	 */
@@ -77,6 +89,7 @@ public class Controller implements Initializable {
 	private void updateRecord(ActionEvent actionEvent) throws SQLException {
 		textfieldArea.getChildren().clear();
 		try{
+			// initialization of required fields and datas
 			dynamicFieldButton = new Button("btn");
 			String table = tableList.getSelectionModel().getSelectedItem();
 			String rowValue = String.valueOf(tableView.getSelectionModel().getSelectedItem());
@@ -88,6 +101,8 @@ public class Controller implements Initializable {
 			int rowCount = resultSet.getMetaData().getColumnCount();
 			String val = pressedButton(actionEvent);
 			TextField textField[] = new TextField[rowCount];
+
+			// creating text fields dynamically
 			for(int i=0;i<rowCount-1;i++) {
 				textField[i] = new TextField();
 				textField[i].setText(vals[i+1]);
@@ -97,6 +112,7 @@ public class Controller implements Initializable {
 			dynamicFieldButton.setText(val);
 			textfieldArea.getChildren().add(dynamicFieldButton);
 
+			// this waits for click action of dynamicly created button
 			dynamicFieldButton.setOnAction((EventHandler<ActionEvent>) e -> {
 				try {
 					ArrayList<matrices> values = new ArrayList<matrices>();
@@ -104,8 +120,10 @@ public class Controller implements Initializable {
 						values.add(new matrices(resultSet.getMetaData().getColumnName(i+1)
 								,textField[i-1].getText().trim()));
 					}
+					// call the update function
 					model.update(connection,table,values,column,id);
 
+					// refresh table
 					fillTable(table);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
@@ -117,7 +135,8 @@ public class Controller implements Initializable {
 	}
 
 	/**
-	 *
+	 * does same as before
+	 * this time it inserts the data
 	 * @param actionEvent
 	 * @throws SQLException
 	 */
@@ -146,7 +165,11 @@ public class Controller implements Initializable {
 						values.add(new matrices(resultSet.getMetaData().getColumnName(i+1)
 								,textField[i].getText().trim()));
 					}
-					model.insert(connection,table,values);
+					try{
+						model.insert(connection,table,values);
+					} catch (Exception ex) {
+						showDialog("Please Fill the Required Fields!");
+					}
 
 					fillTable(table);
 				} catch (SQLException ex) {
@@ -159,7 +182,8 @@ public class Controller implements Initializable {
 	}
 
 	/**
-	 *
+	 * deletes seletcted item on tableview
+	 * then refreshes the tableview
 	 * @param actionEvent
 	 * @throws SQLException
 	 */
@@ -170,16 +194,24 @@ public class Controller implements Initializable {
 		String rowValue = String.valueOf(tableView.getSelectionModel().getSelectedItem());
 		String[] vals = rowValue.split(",");
 		int  id = Integer.parseInt(vals[0].replace("[",""));
+
+		// calls the delete function from model
 		model.delete(connection,table,column,id);
+
+		// refreshes the tableview
 		fillTable(table);
 	}
 
 	/**
-	 *
+	 * error handling for empty fields
+	 * checks the login information
 	 * @param username
 	 * @param password
 	 */
-	private void checkIfEmpty(String username, String password) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	private void checkIfEmpty(String username, String password) throws ClassNotFoundException
+	                                                                   ,SQLException
+	                                                                   ,InstantiationException
+	                                                                   ,IllegalAccessException {
 		if(username.isEmpty() || password.isEmpty()){
 			showDialog("Please Fill The Required Fields!");
 		} else {
@@ -188,7 +220,7 @@ public class Controller implements Initializable {
 	}
 
 	/**
-	 *
+	 * creates database connection if everything is set
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IllegalAccessException
@@ -206,7 +238,7 @@ public class Controller implements Initializable {
 	}
 
 	/**
-	 *
+	 * changes the button color to green when successfully connected
 	 * @throws SQLException
 	 */
 	private void changeButton() throws SQLException {
@@ -217,11 +249,14 @@ public class Controller implements Initializable {
 	}
 
 	/**
-	 *
+	 * takes the table names from database and fills the combobox
 	 * @throws SQLException
 	 */
 	private void fillCombos() throws SQLException {
+		// returns the data names form databaser
 		ResultSet resultSet = model.tableList(connection);
+
+		// populates the combobox
 		while(resultSet.next()){
 			tablesInDataBase.add(resultSet.getString(1));
 		}
@@ -229,7 +264,7 @@ public class Controller implements Initializable {
 	}
 
 	/**
-	 *
+	 * takes data from selected table and sends to tableview functions
 	 * @param selectedTable
 	 * @throws SQLException
 	 */
@@ -240,7 +275,7 @@ public class Controller implements Initializable {
 	}
 
 	/**
-	 *
+	 * dynamically creates table column
 	 * @param resultSet
 	 * @throws SQLException
 	 */
@@ -260,7 +295,7 @@ public class Controller implements Initializable {
 	}
 
 	/**
-	 *
+	 * populates the table according to desired tables data
 	 * @param resultSet
 	 * @throws SQLException
 	 */
@@ -276,7 +311,8 @@ public class Controller implements Initializable {
 	}
 
 	/**
-	 *
+	 * on every change of table
+	 * we need to clear tableview and observablelist
 	 */
 	private void clearAllData(){
 		data.clear();
@@ -284,6 +320,11 @@ public class Controller implements Initializable {
 		tableView.getColumns().clear();
 	}
 
+	/**
+	 * handles navigation button such as first, last, previous, next
+	 * gives ability to navigations via buttons on top of the window
+	 * @param actionEvent
+	 */
 	@FXML
 	private void navigation(ActionEvent actionEvent) {
 		String val = pressedButton(actionEvent);
@@ -302,6 +343,10 @@ public class Controller implements Initializable {
 			moveInTable(currentIndex--);
 	}
 
+	/**
+	 * takes the index from and moves back and forth on tableview rows
+	 * @param index
+	 */
 	private void moveInTable(int index) {
 		tableView.requestFocus();
 		tableView.getSelectionModel().select(index);
@@ -318,8 +363,9 @@ public class Controller implements Initializable {
 	public String pressedButton(ActionEvent event){
 		return ((Button)event.getSource()).getText();
 	}
+
 	/**
-	 *
+	 * according to message opens dialog box
 	 * @param message
 	 */
 	private void showDialog(String message) {

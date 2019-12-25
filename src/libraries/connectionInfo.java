@@ -6,31 +6,28 @@ public class connectionInfo {
 
 	/**
 	 *
-	 * @param password
-	 */
-	public static void setPassword(String password) {
-		connectionInfo.password = password;
-	}
-
-	/**
-	 *
-	 * @param username
+	 * @param username keeps database username
 	 */
 	public static void setUsername(String username) {
 		connectionInfo.username = username;
 	}
 
 	/**
-	 *
-	 * @return
+	 * @param password keeps database password
+	 */
+	public static void setPassword(String password) {
+		connectionInfo.password = password;
+	}
+
+	/**
+	 * @return database username
 	 */
 	public static String getUsername() {
 		return username;
 	}
 
 	/**
-	 *
-	 * @return
+	 * @return database password
 	 */
 	public static String getPassword() {
 		return password;
