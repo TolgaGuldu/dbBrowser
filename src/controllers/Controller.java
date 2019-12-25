@@ -91,6 +91,7 @@ public class Controller implements Initializable {
 			for(int i=0;i<rowCount-1;i++) {
 				textField[i] = new TextField();
 				textField[i].setText(vals[i+1]);
+				textField[i].setPromptText(resultSet.getMetaData().getColumnName(i+2));
 				textfieldArea.getChildren().add(textField[i]);
 			}
 			dynamicFieldButton.setText(val);
@@ -132,6 +133,7 @@ public class Controller implements Initializable {
 			TextField textField[] = new TextField[rowCount];
 			for(int i=0;i<rowCount;i++) {
 				textField[i] = new TextField();
+				textField[i].setPromptText(resultSet.getMetaData().getColumnName(i+1));
 				textfieldArea.getChildren().add(textField[i]);
 			}
 			dynamicFieldButton.setText(val);
