@@ -19,6 +19,7 @@ import models.model;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -51,13 +52,11 @@ public class Controller implements Initializable {
 	 * Where connection action happens
 	 * @param actionEvent
 	 * @throws ClassNotFoundException
-	 * @throws SQLException
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
 	@FXML
 	private void connectToDatabse(ActionEvent actionEvent) throws ClassNotFoundException
-                                                                    ,SQLException
                                                                     ,InstantiationException
                                                                     ,IllegalAccessException {
 		connectionInfo.setUsername(username.getText());
@@ -83,10 +82,9 @@ public class Controller implements Initializable {
 	 * takes the variables calls update function from model
 	 * lastly refreshes table
 	 * @param actionEvent
-	 * @throws SQLException
 	 */
 	@FXML
-	private void updateRecord(ActionEvent actionEvent) throws SQLException {
+	private void updateRecord(ActionEvent actionEvent) {
 		textfieldArea.getChildren().clear();
 		try{
 			// initialization of required fields and datas
@@ -130,7 +128,7 @@ public class Controller implements Initializable {
 				}
 			});
 		}catch (Exception e){
-			showDialog("You didn't choose a table or logged in!");
+			showDialog("You didn't choose a table or logged in!", Alert.AlertType.WARNING);
 		}
 	}
 
@@ -138,10 +136,9 @@ public class Controller implements Initializable {
 	 * does same as before
 	 * this time it inserts the data
 	 * @param actionEvent
-	 * @throws SQLException
 	 */
 	@FXML
-	private void insertRecord(ActionEvent actionEvent) throws SQLException {
+	private void insertRecord(ActionEvent actionEvent) {
 		textfieldArea.getChildren().clear();
 		try{
 			dynamicFieldButton = new Button("btn");
@@ -168,7 +165,7 @@ public class Controller implements Initializable {
 					try{
 						model.insert(connection,table,values);
 					} catch (Exception ex) {
-						showDialog("Please Fill the Required Fields!");
+						showDialog("Please Fill the Required Fields!", Alert.AlertType.WARNING);
 					}
 
 					fillTable(table);
@@ -177,7 +174,7 @@ public class Controller implements Initializable {
 				}
 			});
 		}catch (Exception e){
-			showDialog("You didn't choose a table or logged in!");
+			showDialog("You didn't choose a table or logged in!", Alert.AlertType.WARNING);
 		}
 	}
 
@@ -189,6 +186,11 @@ public class Controller implements Initializable {
 	 */
 	@FXML
 	private void deleteFromTable(ActionEvent actionEvent) throws SQLException {
+		Optional<ButtonType> respond = showDialog("Are You Sure You Want to Delete This Record"
+															,Alert.AlertType.CONFIRMATION);
+
+		if(respond.get() != ButtonType.OK) return;
+
 		String table = tableList.getSelectionModel().getSelectedItem();
 		String column = resultSet.getMetaData().getColumnName(1);
 		String rowValue = String.valueOf(tableView.getSelectionModel().getSelectedItem());
@@ -215,7 +217,7 @@ public class Controller implements Initializable {
 	                                                                   ,InstantiationException
 	                                                                   ,IllegalAccessException {
 		if(username.isEmpty() || password.isEmpty()){
-			showDialog("Please Fill The Required Fields!");
+			showDialog("Please Fill The Required Fields!", Alert.AlertType.WARNING);
 		} else {
 			makeTheConnection();
 		}
@@ -238,7 +240,7 @@ public class Controller implements Initializable {
 			changeButton();
 			fillCombos();
 		} catch (Exception e){
-			showDialog("Invalid username or password! ");
+			showDialog("Invalid username or password! ", Alert.AlertType.WARNING);
 		}
 	}
 
@@ -370,12 +372,13 @@ public class Controller implements Initializable {
 	}
 
 	/**
-	 * according to message opens dialog box
+	 * according to message fills the dialog box
 	 * @param message
+	 * @return
 	 */
-	private void showDialog(String message) {
-		Alert alert = new Alert(Alert.AlertType.WARNING);
+	private Optional<ButtonType> showDialog(String message, Alert.AlertType type) {
+		Alert alert = new Alert(type);
 		alert.setContentText(message);
-		alert.showAndWait();
+		return alert.showAndWait();
 	}
 }
