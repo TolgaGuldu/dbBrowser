@@ -205,11 +205,13 @@ public class Controller implements Initializable {
 	/**
 	 * error handling for empty fields
 	 * checks the login information
-	 * @param username
-	 * @param password
+	 * @param username database username
+	 * @param password database password
+	 * @throws ClassNotFoundException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
 	 */
 	private void checkIfEmpty(String username, String password) throws ClassNotFoundException
-	                                                                   ,SQLException
 	                                                                   ,InstantiationException
 	                                                                   ,IllegalAccessException {
 		if(username.isEmpty() || password.isEmpty()){
@@ -222,14 +224,17 @@ public class Controller implements Initializable {
 	/**
 	 * creates database connection if everything is set
 	 * @throws ClassNotFoundException
-	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
 	 */
-	private void makeTheConnection() throws ClassNotFoundException, SQLException, IllegalAccessException, InstantiationException {
+	private void makeTheConnection() throws ClassNotFoundException
+	                                        ,IllegalAccessException
+	                                        ,InstantiationException {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbBrowser", connectionInfo.getUsername(), connectionInfo.getPassword());
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbBrowser"
+														,connectionInfo.getUsername()
+														,connectionInfo.getPassword());
 			changeButton();
 			fillCombos();
 		} catch (Exception e){

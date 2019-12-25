@@ -5,7 +5,6 @@ public class connectionInfo {
 	public static String password;
 
 	/**
-	 *
 	 * @param username keeps database username
 	 */
 	public static void setUsername(String username) {
