@@ -231,8 +231,6 @@ public class Controller implements Initializable {
 	 * @param index
 	 */
 	private void moveInTable(int index) {
-		System.out.println(index);
-
 		tableView.requestFocus();
 		tableView.getSelectionModel().select(index);
 		tableView.getFocusModel().focus(index);
