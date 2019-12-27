@@ -205,6 +205,40 @@ public class Controller implements Initializable {
 	}
 
 	/**
+	 * handles navigation button such as first, last, previous, next
+	 * gives ability to navigations via buttons on top of the window
+	 * @param actionEvent
+	 */
+	@FXML
+	private void navigation(ActionEvent actionEvent) {
+		String val = pressedButton(actionEvent);
+		System.out.println(val);
+		int sizeOftable = tableView.getItems().size()-1;
+		int currentIndex = tableView.getSelectionModel().getFocusedIndex();
+
+		if (val.equals("First"))
+			moveInTable(0);
+		else if (val.equals("Last"))
+			moveInTable(sizeOftable);
+		else if (sizeOftable!=currentIndex && val.equals("Next"))
+			moveInTable(++currentIndex);
+		else if (currentIndex!=0 && val.equals("Previous"))
+			moveInTable(--currentIndex);
+	}
+
+	/**
+	 * takes the index from and moves back and forth on tableview rows
+	 * @param index
+	 */
+	private void moveInTable(int index) {
+		System.out.println(index);
+
+		tableView.requestFocus();
+		tableView.getSelectionModel().select(index);
+		tableView.getFocusModel().focus(index);
+	}
+
+	/**
 	 * error handling for empty fields
 	 * checks the login information
 	 * @param username database username
@@ -325,39 +359,6 @@ public class Controller implements Initializable {
 		data.clear();
 		tableView.getItems().clear();
 		tableView.getColumns().clear();
-	}
-
-	/**
-	 * handles navigation button such as first, last, previous, next
-	 * gives ability to navigations via buttons on top of the window
-	 * @param actionEvent
-	 */
-	@FXML
-	private void navigation(ActionEvent actionEvent) {
-		String val = pressedButton(actionEvent);
-		System.out.println(val);
-		int sizeOftable = tableView.getItems().size();
-		int currentIndex = tableView.getSelectionModel().getFocusedIndex();
-
-		// @TODO: fix navigation
-		if (val.equals("First"))
-			moveInTable(0);
-		else if (val.equals("Last"))
-			moveInTable(sizeOftable);
-		else if (sizeOftable!=currentIndex && val.equals("Next"))
-			moveInTable(currentIndex++);
-		else if (currentIndex!=0 && val.equals("Previous"))
-			moveInTable(currentIndex--);
-	}
-
-	/**
-	 * takes the index from and moves back and forth on tableview rows
-	 * @param index
-	 */
-	private void moveInTable(int index) {
-		tableView.requestFocus();
-		tableView.getSelectionModel().select(index);
-		tableView.getFocusModel().focus(index);
 	}
 
 	/**
