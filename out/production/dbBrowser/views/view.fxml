@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <children>
       <VBox prefHeight="400.0" prefWidth="400.0">
          <children>
@@ -49,6 +49,23 @@
                         <Insets left="127.0" top="25.0" />
                      </HBox.margin>
                   </PasswordField>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Databases">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" top="25.0" />
+                     </padding>
+                  </Label>
+                  <ComboBox fx:id="databaseList" onAction="#selectedTable" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets left="93.0" top="25.0" />
+                     </HBox.margin>
+                  </ComboBox>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">

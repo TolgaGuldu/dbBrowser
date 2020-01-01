@@ -53,6 +53,23 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
+                  <Label text="Databases">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="15.0" top="25.0" />
+                     </padding>
+                  </Label>
+                  <ComboBox fx:id="databaseList" onAction="#selectedTable" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets left="93.0" top="25.0" />
+                     </HBox.margin>
+                  </ComboBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
                   <Label text="Table Name">
                      <font>
                         <Font size="18.0" />
