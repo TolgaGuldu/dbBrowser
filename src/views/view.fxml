@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <children>
-      <VBox prefHeight="400.0" prefWidth="400.0">
+      <VBox prefHeight="400.0" prefWidth="400.0" styleClass="root" stylesheets="@DarkTheme.css">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" stylesheets="@DarkTheme.css">
                <children>
-                  <Label text="Username">
+                  <Label prefHeight="52.0" prefWidth="140.0" text="Username">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -29,14 +29,14 @@
                   </Label>
                   <TextField fx:id="username">
                      <HBox.margin>
-                        <Insets left="127.0" top="25.0" />
+                        <Insets left="127.0" right="10.0" top="25.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Password">
+                  <Label prefHeight="52.0" prefWidth="176.0" text="Password">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -44,9 +44,9 @@
                         <Insets left="15.0" top="25.0" />
                      </padding>
                   </Label>
-                  <PasswordField fx:id="password">
+                  <PasswordField fx:id="password" prefHeight="26.0" prefWidth="205.0">
                      <HBox.margin>
-                        <Insets left="127.0" top="25.0" />
+                        <Insets left="127.0" right="10.0" top="25.0" />
                      </HBox.margin>
                   </PasswordField>
                </children>
@@ -78,7 +78,7 @@
                         <Insets left="15.0" top="25.0" />
                      </padding>
                   </Label>
-                  <ComboBox fx:id="tableList" onAction="#selectedTable" prefWidth="200.0">
+                  <ComboBox fx:id="tableList" onAction="#selectedTable" prefWidth="200.0" stylesheets="@DarkTheme.css">
                      <HBox.margin>
                         <Insets left="80.0" top="25.0" />
                      </HBox.margin>
@@ -92,27 +92,27 @@
             </HBox>
          </children>
       </VBox>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" styleClass="button2" stylesheets="@DarkTheme.css">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="button2" stylesheets="@DarkTheme.css">
                <children>
-                  <HBox layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="575.0">
+                  <HBox layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="575.0" stylesheets="@DarkTheme.css">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#navigation" prefWidth="82.0" text="First" />
+                        <Button blendMode="DARKEN" cache="true" cacheHint="SCALE" mnemonicParsing="false" onAction="#navigation" prefWidth="82.0" stylesheets="@DarkTheme.css" text="First" />
                         <Button mnemonicParsing="false" onAction="#navigation" prefWidth="82.0" text="Last" />
                         <Button mnemonicParsing="false" onAction="#navigation" prefWidth="82.0" text="Next" />
                         <Button mnemonicParsing="false" onAction="#navigation" prefWidth="82.0" text="Previous" />
                         <Button fx:id="Insert" mnemonicParsing="false" onAction="#insertRecord" prefWidth="82.0" text="Insert" />
                         <Button fx:id="Update" mnemonicParsing="false" onAction="#updateRecord" prefWidth="82.0" text="Update" />
-                        <Button fx:id="delete" mnemonicParsing="false" onAction="#deleteFromTable" prefWidth="82.0" text="Delete" />
+                        <Button fx:id="delete" mnemonicParsing="false" onAction="#deleteFromTable" prefWidth="82.0" stylesheets="@DarkTheme.css" text="Delete" />
                      </children>
                   </HBox>
-                  <TableView fx:id="tableView" layoutX="14.0" layoutY="49.0" prefHeight="188.0" prefWidth="575.0" />
+                  <TableView fx:id="tableView" layoutX="14.0" layoutY="49.0" prefHeight="188.0" prefWidth="575.0" styleClass="root" stylesheets="@DarkTheme.css" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="root" stylesheets="@DarkTheme.css">
                <children>
-                  <VBox fx:id="textfieldArea" layoutX="162.0" layoutY="23.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <VBox fx:id="textfieldArea" layoutX="162.0" layoutY="23.0" prefHeight="200.0" prefWidth="100.0" styleClass="root" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children></AnchorPane>
         </items>
          <HBox.margin>
