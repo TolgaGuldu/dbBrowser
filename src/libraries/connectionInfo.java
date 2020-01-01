@@ -3,6 +3,7 @@ package libraries;
 public class connectionInfo {
 	public static String username;
 	public static String password;
+	public static String database;
 
 	/**
 	 * @param username keeps database username
@@ -19,6 +20,11 @@ public class connectionInfo {
 	}
 
 	/**
+	 * @param database keeps database name
+	 */
+	public static void setDatabase(String database) { connectionInfo.database = database; }
+
+	/**
 	 * @return database username
 	 */
 	public static String getUsername() {
@@ -31,4 +37,9 @@ public class connectionInfo {
 	public static String getPassword() {
 		return password;
 	}
+
+	/**
+	 * @return database name
+	 */
+	public static String getDatabase() { return database; }
 }

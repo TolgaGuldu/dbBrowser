@@ -27,6 +27,7 @@ public class Controller implements Initializable {
 	@FXML private TextField password;
 	@FXML private Button connect;
 	@FXML private ComboBox<String> tableList;
+	@FXML private ComboBox<String> databaseList;
 	@FXML private TableView tableView;
 	@FXML private VBox textfieldArea;
 
@@ -34,6 +35,7 @@ public class Controller implements Initializable {
 	private Connection connection;
 	private ResultSet resultSet;
 	private ObservableList<String> tablesInDataBase;
+	private ObservableList<String> databases;
 	private ObservableList<ObservableList> data;
 	private model model = new model();
 
@@ -45,6 +47,7 @@ public class Controller implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tablesInDataBase = FXCollections.observableArrayList();
+		databases = FXCollections.observableArrayList();
 		data = FXCollections.observableArrayList();
 	}
 
@@ -72,6 +75,12 @@ public class Controller implements Initializable {
 	@FXML
 	private void selectedTable(ActionEvent actionEvent) throws SQLException {
 		fillTable(tableList.getSelectionModel().getSelectedItem());
+	}
+
+	@FXML
+	private void selectedDatabase(ActionEvent actionEvent) throws SQLException {
+		connectionInfo.setDatabase(databaseList.getSelectionModel().getSelectedItem());
+		fillTableCombos();
 	}
 
 	/**
@@ -266,11 +275,11 @@ public class Controller implements Initializable {
 	                                        ,InstantiationException {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbBrowser"
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"
 														,connectionInfo.getUsername()
 														,connectionInfo.getPassword());
 			changeButton();
-			fillCombos();
+			fillDatabaseCombos();
 		} catch (Exception e){
 			showDialog("Invalid username or password! ", Alert.AlertType.WARNING);
 		}
@@ -291,15 +300,29 @@ public class Controller implements Initializable {
 	 * takes the table names from database and fills the combobox
 	 * @throws SQLException
 	 */
-	private void fillCombos() throws SQLException {
-		// returns the data names form databaser
+	private void fillTableCombos() throws SQLException {
+		tablesInDataBase.clear();
+		tableList.getItems().clear();
+		clearAllData();
+
+		// returns the data names form database
 		ResultSet resultSet = model.tableList(connection);
 
 		// populates the combobox
 		while(resultSet.next()){
+			System.out.println(resultSet.getString(1));
 			tablesInDataBase.add(resultSet.getString(1));
 		}
 		tableList.setItems(tablesInDataBase);
+	}
+
+	private void fillDatabaseCombos() throws SQLException {
+		ResultSet resultSet = model.databaseList(connection);
+		while(resultSet.next()){
+
+			databases.add(resultSet.getString(1));
+		}
+		databaseList.setItems(databases);
 	}
 
 	/**

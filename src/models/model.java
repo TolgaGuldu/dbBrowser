@@ -1,5 +1,6 @@
 package models;
 
+import libraries.connectionInfo;
 import libraries.matrices;
 
 import java.sql.*;
@@ -10,6 +11,16 @@ public class model {
 	Statement statement;
 	ResultSet resultSet;
 
+	/**
+	 * @param connection
+	 * @return database list
+	 * @throws SQLException
+	 */
+	public ResultSet databaseList(Connection connection) throws SQLException {
+		statement = connection.createStatement();
+		resultSet= statement.executeQuery("SHOW DATABASES");
+		return resultSet;
+	}
 
 	/**
 	 * @param connection
@@ -18,6 +29,7 @@ public class model {
 	 */
 	public ResultSet tableList(Connection connection) throws SQLException {
 		statement = connection.createStatement();
+		statement.executeQuery("USE " + connectionInfo.getDatabase());
 		resultSet= statement.executeQuery("SHOW TABLES");
 		return resultSet;
 	}
@@ -30,6 +42,7 @@ public class model {
 	 */
 	public ResultSet tableData(Connection connection, String table) throws SQLException {
 		statement = connection.createStatement();
+		statement.executeQuery("USE " + connectionInfo.getDatabase());
 		resultSet = statement.executeQuery("SELECT * FROM " + table);
 		return resultSet;
 	}
@@ -44,6 +57,7 @@ public class model {
 	 */
 	public void update(Connection connection, String table, ArrayList<matrices> values, String column, int id) throws SQLException {
 		statement = connection.createStatement();
+		statement.executeQuery("USE " + connectionInfo.getDatabase());
 		for (matrices item: values) {
 			statement.executeUpdate("UPDATE " + table + " SET `" + item.fieldName + "`='" + item.value + "' WHERE " + column + " = " + id);
 		}
@@ -57,6 +71,7 @@ public class model {
 	 */
 	public void insert(Connection connection, String table, ArrayList<matrices> values) throws SQLException {
 		statement = connection.createStatement();
+		statement.executeQuery("USE " + connectionInfo.getDatabase());
 		String fields = "";
 		String marks = "";
 		int index = 0;
@@ -94,6 +109,7 @@ public class model {
 	 */
 	public void delete(Connection connection, String table, String column, int id) throws SQLException {
 		statement = connection.createStatement();
+		statement.executeQuery("USE " + connectionInfo.getDatabase());
 		statement.executeUpdate("DELETE FROM " + table + " WHERE " + column + " = " + id);
 	}
 

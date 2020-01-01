@@ -61,7 +61,7 @@
                         <Insets left="15.0" top="25.0" />
                      </padding>
                   </Label>
-                  <ComboBox fx:id="databaseList" onAction="#selectedTable" prefWidth="200.0">
+                  <ComboBox fx:id="databaseList" onAction="#selectedDatabase" prefWidth="200.0">
                      <HBox.margin>
                         <Insets left="93.0" top="25.0" />
                      </HBox.margin>
