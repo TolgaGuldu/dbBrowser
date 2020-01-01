@@ -275,7 +275,7 @@ public class Controller implements Initializable {
 	                                        ,InstantiationException {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/?useSSL=true"
 														,connectionInfo.getUsername()
 														,connectionInfo.getPassword());
 			changeButton();
