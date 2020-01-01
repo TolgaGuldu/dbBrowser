@@ -15,7 +15,7 @@ SET time_zone = "+00:00";
 --
 -- Veritabanı: `dbBrowser`
 --
-CREATE DATABASE IF NOT EXISTS `dbBrowser` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE IF NOT EXISTS `dbBrowser';
 USE `dbBrowser`;
 -- --------------------------------------------------------
 
@@ -29,7 +29,7 @@ CREATE TABLE `Course` (
   `courseNum` int(11) DEFAULT NULL,
   `title` varchar(50) NOT NULL,
   `numCredit` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 --
 -- Tablo döküm verisi `Course`
